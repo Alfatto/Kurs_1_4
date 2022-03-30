@@ -110,31 +110,28 @@ public class LinkedList {
         return count; // здесь будет ваш код подсчёта количества элементов в списке
     }
 
-    public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
-        if (head == null) {
+   public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
+        if (this.head == null) {
+            addInTail(_nodeToInsert);
             return;
         }
-        Node node = head, previous;
-        if (_nodeAfter == null) {
-//            System.out.println("_nodeAfter == null");
-            previous = head;
-            head = _nodeToInsert;
-            head.next = previous;
-            return;
-        }
-        while (node != null) {
-            if (node.value == _nodeAfter.value) {
-                if (node == tail) {
-                    node.next = _nodeToInsert;
-                    tail = _nodeAfter;
-                } else {
-                    previous = node.next;
-                    node.next = _nodeToInsert;
-                    node.next.next = previous;
-                    break;
-                }
+        Node current = this.head;
+        while(current != null) {
+            if(_nodeAfter.value == this.tail.value) {
+                this.tail.next = _nodeToInsert;
+                _nodeToInsert.prev = this.tail;
+                this.tail = _nodeToInsert;
+                _nodeToInsert.next = null;
+                return;
             }
-            node = node.next;
+            if(current.value == _nodeAfter.value) {
+                _nodeToInsert.next = current.next;
+                current.next.prev = _nodeToInsert;
+                current.next = _nodeToInsert;
+                _nodeToInsert.prev = current;
+                return;
+            }
+            current = current.next;
         }
     }
 
