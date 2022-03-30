@@ -1,51 +1,21 @@
 import java.util.*;
 
-public class LinkedList {
-    static class Node {
-        public int value;
-        public Node next;
+public class LinkedList
+{
+    public Node head;
+    public Node tail;
 
-        public Node() {
-        }
-
-        public Node(int _value) {
-            value = _value;
-            next = null;
-        }
-
-       /* @Override
-        public String toString() {
-            return "Node{" +
-                    "value=" + value +
-                    ", next=" + next +
-                    '}';
-        }*/
-    }
-
-   /* @Override
-    public String toString() {
-        return "LinkedList{" +
-                "head=" + head +
-                ", tail=" + tail +
-                '}';
-    }*/
-
-    //создаем поле с параметром Node
-    public Node head;//голова
-    public Node tail;//хвост
-
-
-    public LinkedList() {//при создании объекта инициализируем его поля значением null
+    public LinkedList()
+    {
         head = null;
         tail = null;
     }
 
-
-    //добавляем элемент в конец списка
     public void addInTail(Node item) {
-        if (this.head == null)//если голова равна нулю, то присваиваем значение item
+        if (this.head == null)
             this.head = item;
-        else this.tail.next = item;
+        else
+            this.tail.next = item;
         this.tail = item;
     }
 
@@ -60,6 +30,7 @@ public class LinkedList {
     }
 
     public ArrayList<Node> findAll(int _value) {
+
         ArrayList<Node> nodes = new ArrayList<Node>();
         if (head == null) {
             return nodes;
@@ -74,7 +45,6 @@ public class LinkedList {
         }
         return nodes;
     }
-
 
     public boolean remove(int _value) {
         if (head == null) {
@@ -101,7 +71,7 @@ public class LinkedList {
     }
 
     public void removeAll(int _value) {// здесь будет ваш код удаления всех узлов по заданному значению
-        Node node = this.head, previous = head;
+       Node node = this.head, previous = head;
         while (node != null) {
             if (node.value == _value && head != null) {
                 if (head.next == null) {
@@ -122,6 +92,12 @@ public class LinkedList {
         }
     }
 
+    public void clear() {
+        // здесь будет ваш код очистки всего списка
+        this.head = null;
+        this.tail = null;
+    }
+
     public int count() {
         Node node = this.head;
         int count = 0;
@@ -131,34 +107,6 @@ public class LinkedList {
         }
         return count; // здесь будет ваш код подсчёта количества элементов в списке
     }
-
-    public void clear() {
-        // здесь будет ваш код очистки всего списка
-        this.head = null;
-        this.tail = null;
-    }
-
-
-    public ArrayList<Integer> myArray(LinkedList myList) {
-        Node node = this.head;
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        while (node != null) {
-            arrayList.add(node.value);
-            node = node.next;
-        }
-        return arrayList;
-    }
-
-   /* public void displayList(LinkedList0 list) {
-        if (head == null) {
-            System.out.println("null!");
-        }
-        Node1 node = head;
-        while (node != null) {
-            System.out.print(node.value + " ");
-            node = node.next;
-        }
-    }*/
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
         if (head == null) {
@@ -188,20 +136,15 @@ public class LinkedList {
         }
     }
 
-    public static LinkedList sum(LinkedList list1, LinkedList list2) {
-        LinkedList result = new LinkedList();
-        if (list1.count() != list2.count()) {
-            return result;
-        }
-        LinkedList.Node node1 = list1.head;
-        LinkedList.Node node2 = list2.head;
-        LinkedList.Node item;
-        while (node1 != null) {
-            item = new LinkedList.Node(node1.value + node2.value);
-            result.addInTail(item);
-            node1 = node1.next;
-            node2 = node2.next;
-        }
-        return result;
+}
+
+class Node
+{
+    public int value;
+    public Node next;
+    public Node(int _value)
+    {
+        value = _value;
+        next = null;
     }
 }
