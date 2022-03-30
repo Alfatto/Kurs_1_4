@@ -1,23 +1,25 @@
 import java.util.*;
-
-public class LinkedList
-{
+public class LinkedList {
     public Node head;
     public Node tail;
 
-    public LinkedList()
-    {
+    public LinkedList() {
         head = null;
         tail = null;
     }
 
-    public void addInTail(Node item) {
-        if (this.head == null)
-            this.head = item;
-        else
-            this.tail.next = item;
-        this.tail = item;
+    public void addInTail(Node _item) {
+        if (head == null) {
+            this.head = _item;
+            this.head.next = null;
+            this.head.prev = null;
+        } else {
+            this.tail.next = _item;
+            _item.prev = tail;
+        }
+        this.tail = _item;
     }
+
 
     public Node find(int value) {
         Node node = this.head;
@@ -71,7 +73,7 @@ public class LinkedList
     }
 
     public void removeAll(int _value) {// здесь будет ваш код удаления всех узлов по заданному значению
-       Node node = this.head, previous = head;
+        Node node = this.head, previous = head;
         while (node != null) {
             if (node.value == _value && head != null) {
                 if (head.next == null) {
@@ -136,15 +138,31 @@ public class LinkedList
         }
     }
 
+   /* @Override
+    public String toString() {
+        return "LinkedList{" +
+                "head=" + head +
+                ", tail=" + tail +
+                '}';
+    }*/
 }
 
-class Node
-{
+class Node {
     public int value;
     public Node next;
-    public Node(int _value)
-    {
+    public Node prev;
+
+    public Node(int _value) {
         value = _value;
         next = null;
+        prev = null;
     }
+
+    /*@Override
+    public String toString() {
+        return "Node{" +
+                "value=" + value +
+                ", next=" + next +
+                '}';
+    }*/
 }
