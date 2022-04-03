@@ -94,16 +94,10 @@ public class LinkedList2 {
         return true;
     }
 
-    public void removeAll(int _value) {
-        if (head.value == _value && head.next == null) {
-            this.head = null;
-            this.tail = null;
-            return;
-        }
-        while (remove(_value)) {
+   public void removeAll(int _value) {
+        while (find(_value) != null) {
             remove(_value);
         }
-        // здесь будет ваш код удаления всех узлов по заданному значению
     }
 
     public void clear() {
