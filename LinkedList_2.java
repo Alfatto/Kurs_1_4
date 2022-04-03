@@ -26,7 +26,6 @@ public class LinkedList2 {
             _item.prev = tail;
         }
         this.tail = _item;
-        System.out.println(tail + ", !!!  " + tail);
     }
 
     public Node find(int _value) {
