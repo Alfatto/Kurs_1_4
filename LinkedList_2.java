@@ -55,44 +55,43 @@ public class LinkedList2 {
     }
 
     public boolean remove(int _value) {
-        Node myNode = this.head, previous = this.head;
-        if (isEmpty()) {//список пуст или элемента нет
+        Node node = this.head;
+
+        if (node == null || find(_value) == null) {
             return false;
         }
-        //если один элемент
-        if (head.value == _value && head.next == null) {
+
+        if (node.value == _value && node.next == null) {
+            node = null;
             this.head = null;
             this.tail = null;
-            return true;
         }
-        while (myNode != null) {
-            if (myNode.value == _value) {
-                if (head.value == _value) {
-                    head = myNode.next;
-                    tail = head;
-                    head.prev = null;
-                } else if (myNode.next == tail) {
-                    myNode.prev = previous;
-                    tail.prev = previous;
-                    myNode.prev.next = myNode.next;
-                } else if (myNode.next == null) {
-                    myNode = previous;
-                    myNode.next = null;
-                    tail = previous;
-                } else {
-                    myNode = previous;
-                    myNode.next = previous.next.next;
-                    myNode.next.prev = previous;
-                }
+
+        while (node != null) {
+            if (head.next.next == null && head.value == _value) {
+                head.value = node.next.value;
+                node.next.prev = null;
+                node.next = node.next.next;
+                tail.value = head.value;
+                tail.prev = null;
                 break;
-            } else if (previous.next == tail && tail.value != _value)
-                return false;
-            else {
-                previous = myNode;
-                myNode = myNode.next;
             }
+            if (head.value == _value) {
+                head.value = node.next.value;
+                node.next.prev = null;
+                node.next = node.next.next;
+                break;
+            } else if (node.next.value == _value && node.next.next != null) {
+                node.next.value = node.next.next.value;
+                node.next.next.value = _value;
+            } else if (node.next.value == _value && node.next.next == null) {
+                this.tail.value = node.value;
+                this.tail.prev = node.prev;
+                node.next = null;
+            }
+            node = node.next;
         }
-        return true; // если узел был удалён
+        return true;
     }
 
     public void removeAll(int _value) {
