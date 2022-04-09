@@ -16,29 +16,30 @@ public class DynArray<T>
         makeArray(16);
     }
 
+
     public void makeArray(int new_capacity)
     {
-        // array = (T[]) Array.newInstance(this.clazz, new_capacity);
-        // ваш код
-        array = (T[]) Array.newInstance(this.clazz, new_capacity);
-        //если new емкость больше чем 16 то создаем новый массив и копируем в него старый
-         if ((new_capacity > capacity)){
-            T[] myArray = (T[]) new Integer[new_capacity];
-            System.arraycopy(array, 0, myArray,0,capacity);
-            array = myArray.clone();
-            capacity = new_capacity;
+        if (new_capacity >= 0) {
+            if(count == 0) {
+                array = (T[]) Array.newInstance(this.clazz, new_capacity);
+            } else  {
+                int j;
+                if (new_capacity < count) {
+                    j = new_capacity;
+                } else {
+                    j = count;
+                }
+                T [] array_copy = (T[]) Array.newInstance(this.clazz, new_capacity);
+                for (int i = 0; i<j; i++) {
+                    array_copy[i] = array[i];
+                }
+                array = array_copy;
+                count = j;
+            }
         } else {
-            T[] myArray = (T[]) new Integer[new_capacity];
-            System.arraycopy(array, 0, myArray, 0, new_capacity - 1);
-            array = myArray.clone();
-            capacity = new_capacity;
+            throw new IllegalArgumentException("");
         }
-
-        if (capacity == 0) {
-            capacity = new_capacity;
-        } else if (count + 1 % 16 == 0) {
-            capacity = (capacity * 2);
-        }
+        capacity = new_capacity;
     }
 
     public T getItem(int index)
@@ -65,7 +66,7 @@ public class DynArray<T>
     public void insert(T itm, int index)
     {
         if (!(index >= 0 && index <= count)) {
-            throw new IllegalArgumentException("Illegal Argument: " + index);
+            throw new IllegalArgumentException("индекс вне диапазона: " + index);
         }
         if (capacity == count) {
             this.makeArray(2 * capacity);
@@ -77,19 +78,19 @@ public class DynArray<T>
         count++;
     }
 
+
+
     public void remove(int index)
     {
-        // ваш код
-        //проверяем на исключение
-        if (index > count || index < 0)
-            throw new IllegalArgumentException ("индекс вне диапазона");
+        if (!(index >= 0 && index < count)) {
+            throw new IllegalArgumentException("индекс вне диапазона: " + index);
+        }
 
-        for (int i = index; i < array.length - 1; i++){
-            array[i] = array[i + 1];
+        for (int i = index; i < count - 1; i++) {
+            array[i] = array[i+1];
         }
         array[count - 1] = null;
-        count --;
-        //проверяем нужно ли уменьшить capacity
+        count--;
         int new_capacity = (int) ((capacity * 1.0)/1.5);
         if (new_capacity < 16) {
             new_capacity = 16;
