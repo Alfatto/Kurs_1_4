@@ -64,12 +64,9 @@ public class DynArray<T>
 
     public void insert(T itm, int index)
     {
-        // ваш код
-        if (capacity + 1 >= count) {
-            capacity = capacity * 2;
-            count ++;
+        if (!(index >= 0 && index <= count)) {
+            throw new IllegalArgumentException("Illegal Argument: " + index);
         }
-
         if (capacity == count) {
             this.makeArray(2 * capacity);
         }
