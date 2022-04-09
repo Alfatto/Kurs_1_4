@@ -1,5 +1,6 @@
 import java.util.*;
 
+ 
 public class DynArray<T>
 {
     public T [] array;
@@ -9,13 +10,10 @@ public class DynArray<T>
 
     public DynArray(Class clz)
     {
-        clazz = clz; // нужен для безопасного приведения типов
-        // new DynArray<Integer>(Integer.class);
-
+        clazz = clz;
         count = 0;
         makeArray(16);
     }
-
 
     public void makeArray(int new_capacity)
     {
@@ -44,8 +42,6 @@ public class DynArray<T>
 
     public T getItem(int index)
     {
-        // ваш код
-        //проверяем на исключение
         if (index >= 0 && index < count) {
             return array[index];
         }
@@ -66,7 +62,7 @@ public class DynArray<T>
     public void insert(T itm, int index)
     {
         if (!(index >= 0 && index <= count)) {
-            throw new IllegalArgumentException("индекс вне диапазона: " + index);
+            throw new IllegalArgumentException("Illegal Argument: " + index);
         }
         if (capacity == count) {
             this.makeArray(2 * capacity);
@@ -78,12 +74,10 @@ public class DynArray<T>
         count++;
     }
 
-
-
     public void remove(int index)
     {
         if (!(index >= 0 && index < count)) {
-            throw new IllegalArgumentException("индекс вне диапазона: " + index);
+            throw new IllegalArgumentException("Illegal Argument: " + index);
         }
 
         for (int i = index; i < count - 1; i++) {
@@ -99,4 +93,5 @@ public class DynArray<T>
             this.makeArray(new_capacity);
         }
     }
+
 }
