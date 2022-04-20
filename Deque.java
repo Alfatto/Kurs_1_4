@@ -23,16 +23,7 @@ public class Deque<T> {
 
     }
 
-    public void addTail1(T item) {
-        deque.add(item);
-        for (int i = 1; i < deque.size(); i++) {
-            deque.set(deque.size() - i, deque.get(deque.size() - (i + 1)));
-        }
-        deque.set(0, item);
-
-    }
-
-
+   
     public T removeFront() {
         // удаление из головы
         if (deque.size() == 0)
