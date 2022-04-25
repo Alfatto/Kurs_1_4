@@ -27,6 +27,18 @@ public class OrderedList<T>
         count = 0;
         _ascending = asc;
     }
+    private void addInTail(Node _item)
+    {
+        if (head == null) {
+            this.head = _item;
+            this.head.next = null;
+            this.head.prev = null;
+        } else {
+            this.tail.next = _item;
+            _item.prev = tail;
+        }
+        this.tail = _item;
+    }
 
     public int compare(T v1, T v2)
     {
@@ -48,7 +60,6 @@ public class OrderedList<T>
             this.addInTail(res);
             return;
         }
-
         Node node = this.head;
         int x;
         if (_ascending == true) {
@@ -56,7 +67,6 @@ public class OrderedList<T>
         } else {
             x = -1;
         }
-
         while (compare(value, (T) node.value) == x) {
             node = node.next;
             if (node == null) {
@@ -119,24 +129,11 @@ public class OrderedList<T>
         this.count = 0;
         this.head = null;
         this.tail = null;
-        // здесь будет ваш код
     }
 
     public int count()
     {
         return count; // здесь будет ваш код подсчёта количества элементов в списке
-    }
-
-    public void addInTail(Node _item) {
-        if (head == null) {
-            this.head = _item;
-            this.head.next = null;
-            this.head.prev = null;
-        } else {
-            this.tail.next = _item;
-            _item.prev = tail;
-        }
-        this.tail = _item;
     }
 
     ArrayList<Node<T>> getAll() // выдать все элементы упорядоченного
