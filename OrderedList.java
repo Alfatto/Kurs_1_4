@@ -1,34 +1,30 @@
 import java.util.*;
 
 
-class Node<T>
-{
+class Node<T> {
     public T value;
     public Node<T> next, prev;
 
-    public Node(T _value)
-    {
+    public Node(T _value) {
         value = _value;
         next = null;
         prev = null;
     }
 }
 
-public class OrderedList<T>
-{
+public class OrderedList<T> {
     public Node<T> head, tail;
     private boolean _ascending;
     private int count;
 
-    public OrderedList(boolean asc)
-    {
+    public OrderedList(boolean asc) {
         head = null;
         tail = null;
         count = 0;
         _ascending = asc;
     }
-    private void addInTail(Node _item)
-    {
+
+    private void addInTail(Node _item) {
         if (head == null) {
             this.head = _item;
             this.head.next = null;
@@ -40,17 +36,25 @@ public class OrderedList<T>
         this.tail = _item;
     }
 
-    public int compare(T v1, T v2)
-    {
-        if (v1 == v2) {
-            return 0;
-        } else if ((Integer) v1 > (Integer) v2) {
-            return 1;
+    public int compare(T v1, T v2) {
+        String v1_c = v1.getClass().getSimpleName();
+        String v2_c = v1.getClass().getSimpleName();
+        if (v1_c.equals("String")) {
+            if (((String) v1).compareTo((String) v2) < 0) {
+                return -1;
+            }
+            if (((String) v1).compareTo((String) v2) > 0) {
+                return 1;
+            }
+        } else {
+            if ((int) v1 < (int) v2) {
+                return -1;
+            }
+            if ((int) v1 > (int) v2) {
+                return 1;
+            }
         }
-        return -1;
-        // -1 если v1 < v2
-        // 0 если v1 == v2
-        // +1 если v1 > v2
+        return 0;
     }
 
     public void add(T value) {
@@ -90,8 +94,7 @@ public class OrderedList<T>
         }
     }
 
-    public Node<T> find(T val)
-    {
+    public Node<T> find(T val) {
         Node node = this.head;
         while (node != null) {
             if (node.value == val) {
@@ -102,8 +105,7 @@ public class OrderedList<T>
         return null; // здесь будет ваш код
     }
 
-    public void delete(T val)
-    {
+    public void delete(T val) {
         Node node = find(val);
         if (node != null) {
             if (this.count == 1) {
@@ -123,16 +125,14 @@ public class OrderedList<T>
         }
     }
 
-    public void clear(boolean asc)
-    {
+    public void clear(boolean asc) {
         _ascending = asc;
         this.count = 0;
         this.head = null;
         this.tail = null;
     }
 
-    public int count()
-    {
+    public int count() {
         return count; // здесь будет ваш код подсчёта количества элементов в списке
     }
 
@@ -141,8 +141,7 @@ public class OrderedList<T>
     {
         ArrayList<Node<T>> r = new ArrayList<Node<T>>();
         Node<T> node = head;
-        while(node != null)
-        {
+        while (node != null) {
             r.add(node);
             node = node.next;
         }
